@@ -8,7 +8,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const TextBox = React.forwardRef<HTMLInputElement, IProps>(
   ({ className, children, lableText, type = "text", error, ...props }, ref) => {
     return (
-      <div className={className + " relative"}>
+      <div className={(className || "") + " relative"}>
         {lableText && (
           <label
             className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base"

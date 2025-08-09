@@ -6,15 +6,40 @@ export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
   function middleware(req) {
     console.log("token: ", req.nextauth.token);
+    
+    const userRole = req.nextauth.token?.role;
+    const pathname = req.nextUrl.pathname;
 
-    if (req.nextUrl.pathname.startsWith("/admin") && req.nextauth.token?.role !== "admin")
+    // Admin-only routes
+    if (pathname.startsWith("/admin") && userRole !== "admin") {
       return NextResponse.rewrite(
         new URL("/auth/login?message=You Are Not Authorized!", req.url)
       );
-    if (req.nextUrl.pathname.startsWith("/user") && req.nextauth.token?.role !== "user")
+    }
+
+    // Student routes - accessible by students, recruiters, and admins
+    if ((pathname.startsWith("/user") || pathname.startsWith("/student")) && 
+        userRole !== "student" && userRole !== "recruiter" && userRole !== "admin") {
       return NextResponse.rewrite(
-        new URL("/auth/login?message=You Are Not Authorized!", req.url)
+        new URL("/auth/student?message=You Are Not Authorized!", req.url)
       );
+    }
+
+    // Recruiter routes - accessible by recruiters and admins
+    if (pathname.startsWith("/recruiter") && 
+        userRole !== "recruiter" && userRole !== "admin") {
+      return NextResponse.rewrite(
+        new URL("/auth/recruiter?message=You Are Not Authorized!", req.url)
+      );
+    }
+
+    // Alumni routes - accessible by alumni, recruiters, and admins
+    if (pathname.startsWith("/alumni") && 
+        userRole !== "alumni" && userRole !== "recruiter" && userRole !== "admin") {
+      return NextResponse.rewrite(
+        new URL("/auth/alumni?message=You Are Not Authorized!", req.url)
+      );
+    }
   },
   {
     callbacks: {
@@ -24,5 +49,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/admin/:path*", "/user/:path*"],
+  matcher: ["/admin/:path*", "/user/:path*", "/student/:path*", "/recruiter/:path*", "/alumni/:path*"],
 };

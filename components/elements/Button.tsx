@@ -4,6 +4,8 @@ export interface IButtonProps
   children?: React.ReactNode;
   variant?:
     | "primary"
+    | "secondary"
+    | "outline"
     | "danger"
     | "success"
     | "warning"
@@ -27,14 +29,16 @@ const Button = ({
     switch (variant) {
       case "primary":
         return "bg-violet-500 hover:bg-violet-700 text-white";
+      case "secondary":
+        return "bg-gray-500 hover:bg-gray-700 text-white";
+      case "outline":
+        return "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50";
       case "danger":
         return "bg-red-500 hover:bg-red-700 text-white ";
       case "success":
         return "bg-green-500 hover:bg-green-700 text-white ";
       case "warning":
         return "bg-amber-500 hover:bg-amber-700 text-white ";
-      case "outline-danger":
-        return "bg-white text-red-500 border border-red-500 hover:text-white hover:bg-red-700  ";
       case "outline-danger":
         return "bg-white text-red-500 border border-red-500 hover:text-white hover:bg-red-700  ";
       case "outline-success":
@@ -45,7 +49,7 @@ const Button = ({
         return "bg-white text-violet-500 border border-violet-500 hover:text-white hover:bg-violet-700  ";
 
       default:
-        return "bg-violet-500 hover:bg-violet-700 hover:bg-gra text-white shadow shadow-violet-600/25 hover:shadow-violet-600/75";
+        return "bg-violet-500 hover:bg-violet-700 text-white shadow shadow-violet-600/25 hover:shadow-violet-600/75";
     }
   };
   return (

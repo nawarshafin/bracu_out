@@ -2,17 +2,19 @@
 import "styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
-import AppBar from "./AppBar";
 interface IProps {
   children: ReactNode;
 }
 export default function RootLayout({ children }: IProps) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body>
         <SessionProvider>
-          <AppBar />
-          <div className={"  h-screen "}>{children}</div>
+          <div className={"min-h-screen"}>{children}</div>
         </SessionProvider>
       </body>
     </html>

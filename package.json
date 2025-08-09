@@ -6,14 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "npx tsx scripts/seed.ts",
+    "migrate-plain-passwords": "node migrate-to-plain-passwords.js",
+    "test-plain-auth": "node test-plain-auth.js",
+    "diagnose-db": "node diagnose-db.js",
+    "verify-mongodb": "node verify-mongodb.js",
+    "test-auth-flow": "node test-auth-flow.js",
+    "test-connection": "node test-connection.js",
+    "reveal-passwords": "node reveal-test-passwords.js",
+    "test-login": "node test-login-credentials.js",
+    "test-complete-auth": "node test-complete-auth.js",
+    "debug-login": "node debug-login.js"
   },
   "dependencies": {
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
+    "bcryptjs": "^3.0.2",
     "eslint": "8.26.0",
     "eslint-config-next": "^13.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.0",
     "next": "13.0.2",
     "next-auth": "^4.15.1",
     "react": "18.2.0",
@@ -21,8 +36,12 @@
     "typescript": "4.8.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.5",
     "autoprefixer": "^10.4.13",
+    "dotenv": "^17.2.1",
     "postcss": "^8.4.20",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "tsx": "^4.20.3"
   }
 }
